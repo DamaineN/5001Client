@@ -35,3 +35,16 @@ mongoose.connect(MONGO_URI, {
   console.log('Error connecting to MongoDB:', err);
 });
 
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  icNumber: { type: String, required: true },
+  latitude: { type: Number },
+  longitude: { type: Number },
+  pic1: { type: String },
+  pic2: { type: String },
+  status: { type: String, default: 'pending' },
+  password: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now }
+});
+
+const User = mongoose.model('users', userSchema);
