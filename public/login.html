@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Navbar Styling */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: #6200ea;
+      color: white;
+    }
+
+    .navbar-logo img {
+      height: 40px;
+    }
+
+    .navbar-title {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .navbar-links a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .navbar-links a:hover {
+      text-decoration: underline;
+    }
+
+    /* Style for the login container */
+    .login-container {
+      background-color: #ebdbe8;
+      padding: 30px;
+      margin: 40px auto;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style for the form */
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    label {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 2px solid #796b00;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #00796b;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #004d40;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 40px;
+      color: #00796b;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <div class="navbar-logo">
+      <img src="images/logo_dbkl2.png" alt="MYdbkl Logo">
+      <span class="navbar-title">MYdbkl</span>
+    </div>
+    <div class="navbar-links">
+      <a href="status.html">Status</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+    </div>
+  </div>
+
+  <h1>User Login</h1>
+
+  <!-- Login Form -->
+  <div class="login-container">
+    <form id="loginForm">
+      <label for="icNumber">IC Number:</label>
+      <input type="text" id="icNumber" name="icNumber" required><br><br>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required><br><br>
+
+      <button type="submit">Login</button>
+    </form>
+  </div>
