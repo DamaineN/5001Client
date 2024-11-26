@@ -49,6 +49,29 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('users', userSchema);
 
+// Define the GET /status route to retrieve the user's status, name, and IC number based on the session
+app.get('/status', async (req, res) => {
+  if (!req.session.userId) {
+    return res.status(401).json({ message: 'User is not logged in.' });
+  }
+
+  try {
+    const user = await User.findById(req.session.userId);  // Fetch the user from the database by userId
+    if (user) {
+      res.json({
+        status: user.status || 'pending',  // Return the user's status (or 'pending' if not set)
+        name: user.name,                   // Return the user's name
+        icNumber: user.icNumber            // Return the user's IC number
+      });
+    } else {
+      res.status(404).json({ message: 'User not found.' });
+    }
+  } catch (error) {
+    console.error('Error fetching user status:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 app.post('/login', async (req, res) => {
   const { icNumber, password } = req.body;
 
