@@ -7,6 +7,10 @@ const bcrypt = require('bcrypt');  // For hashing passwords
 
 const app = express();
 
+// Middleware to parse JSON
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 
