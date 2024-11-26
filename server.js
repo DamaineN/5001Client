@@ -49,6 +49,40 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model('users', userSchema);
 
+// Define the POST /save-user endpoint
+app.post('/save-user', async (req, res) => {
+  const { name, icNumber, address, password, pic1, pic2, status, latitude, longitude } = req.body;
+
+  try {
+    // Hash the password before saving to the database
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create a new user
+    const user = new User({
+      name,
+      icNumber,
+      address,
+      password: hashedPassword,
+      pic1,
+      pic2,
+      status,
+      latitude,
+      longitude
+    });
+
+    await user.save();
+    res.status(200).json({ message: 'User saved successfully' });
+  } catch (error) {
+    console.error('Error saving user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Route to serve the HTML file for the root URL
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // Define the GET /status route to retrieve the user's status, name, and IC number based on the session
 app.get('/status', async (req, res) => {
   if (!req.session.userId) {
@@ -68,6 +102,35 @@ app.get('/status', async (req, res) => {
     }
   } catch (error) {
     console.error('Error fetching user status:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+app.post('/register', async (req, res) => {
+  const { name, icNumber, password } = req.body;
+
+  // Check if the user already exists
+  const existingUser = await User.findOne({ icNumber });
+  if (existingUser) {
+    return res.status(400).json({ message: 'User with this IC number already exists.' });
+  }
+
+  // Hash the password
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  // Save the user to the database
+  const newUser = new User({
+    name,
+    icNumber,
+    password: hashedPassword,  // Store the hashed password
+    status: 'pending'  // Default status
+  });
+
+  try {
+    await newUser.save();
+    res.status(201).json({ message: 'User registered successfully!' });
+  } catch (error) {
+    console.error('Error registering user:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
@@ -97,37 +160,28 @@ app.post('/login', async (req, res) => {
     return res.status(400).json({ message: 'Invalid IC number or password.' });
   }
 
-  app.post('/register', async (req, res) => {
-  const { name, icNumber, password } = req.body;
-
-  // Check if the user already exists
-  const existingUser = await User.findOne({ icNumber });
-  if (existingUser) {
-    return res.status(400).json({ message: 'User with this IC number already exists.' });
-  }
-
-  // Hash the password
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  // Save the user to the database
-  const newUser = new User({
-    name,
-    icNumber,
-    password: hashedPassword,  // Store the hashed password
-    status: 'pending'  // Default status
-  });
-
-  try {
-    await newUser.save();
-    res.status(201).json({ message: 'User registered successfully!' });
-  } catch (error) {
-    console.error('Error registering user:', error);
-    res.status(500).json({ message: 'Internal server error' });
-  }
-});
-  
   // Store userId in session for session-based authentication
   req.session.userId = user._id;
   res.status(200).json({ message: 'Login successful!' });
 });
 
+
+app.post('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ message: 'Failed to log out.' });
+    }
+    res.status(200).json({ message: 'Logout successful!' });
+  });
+});
+
+// Handle non-existent routes with a 404 message
+app.use((req, res, next) => {
+  res.status(404).send('Cannot GET ' + req.url);
+});
+
+// Start the server
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
