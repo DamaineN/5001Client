@@ -8,7 +8,7 @@
     justify-content: flex-start;
     padding: 10px 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: fixed; /* Fix navbar to the top */
+    /*position: fixed;  Fix navbar to the top */
     top: 0;
     left: 0;
     z-index: 1000; 
