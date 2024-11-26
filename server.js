@@ -48,3 +48,34 @@ const userSchema = new mongoose.Schema({
 });
 
 const User = mongoose.model('users', userSchema);
+
+app.post('/login', async (req, res) => {
+  const { icNumber, password } = req.body;
+
+  // Ensure both icNumber and password are present
+  if (!icNumber || !password) {
+    return res.status(400).json({ message: 'IC number and password are required.' });
+  }
+
+  // Find the user by IC number
+  const user = await User.findOne({ icNumber });
+  if (!user) {
+    return res.status(400).json({ message: 'Invalid IC number or password.' });
+  }
+
+  // Ensure that user.password is defined before comparing
+  if (!user.password) {
+    return res.status(400).json({ message: 'User password is missing or corrupted.' });
+  }
+
+  // Compare the provided password with the stored hashed password
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) {
+    return res.status(400).json({ message: 'Invalid IC number or password.' });
+  }
+
+  // Store userId in session for session-based authentication
+  req.session.userId = user._id;
+  res.status(200).json({ message: 'Login successful!' });
+});
+
