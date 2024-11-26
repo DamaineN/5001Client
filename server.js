@@ -97,6 +97,35 @@ app.post('/login', async (req, res) => {
     return res.status(400).json({ message: 'Invalid IC number or password.' });
   }
 
+  app.post('/register', async (req, res) => {
+  const { name, icNumber, password } = req.body;
+
+  // Check if the user already exists
+  const existingUser = await User.findOne({ icNumber });
+  if (existingUser) {
+    return res.status(400).json({ message: 'User with this IC number already exists.' });
+  }
+
+  // Hash the password
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  // Save the user to the database
+  const newUser = new User({
+    name,
+    icNumber,
+    password: hashedPassword,  // Store the hashed password
+    status: 'pending'  // Default status
+  });
+
+  try {
+    await newUser.save();
+    res.status(201).json({ message: 'User registered successfully!' });
+  } catch (error) {
+    console.error('Error registering user:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+  
   // Store userId in session for session-based authentication
   req.session.userId = user._id;
   res.status(200).json({ message: 'Login successful!' });
