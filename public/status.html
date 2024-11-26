@@ -112,4 +112,33 @@ OCTYPE html>
       <p id="userIcNumber">IC Number: Loading...</p>
     </div>
   </div>
+<script>
+    async function getUserStatus() {
+      try {
+        const response = await fetch('/status');
+        
+        if (response.ok) {
+          const data = await response.json();
+          document.getElementById('status').innerText = data.status;
+          document.getElementById('userName').innerText = 'Name: ' + data.name;
+          document.getElementById('userIcNumber').innerText = 'IC Number: ' + data.icNumber;
+        } else {
+          const errorMessage = await response.text();
+          document.getElementById('status').innerText = 'Error: ' + errorMessage;
+          document.getElementById('userName').innerText = 'Name: Error fetching data';
+          document.getElementById('userIcNumber').innerText = 'IC Number: Error fetching data';
+        }
+      } catch (error) {
+        console.error('Error fetching user status:', error);
+        document.getElementById('status').innerText = 'An error occurred while fetching the status.';
+        document.getElementById('userName').innerText = 'Name: Error fetching data';
+        document.getElementById('userIcNumber').innerText = 'IC Number: Error fetching data';
+      }
+    }
+
+    // Call the function to load the status when the status page loads
+    window.onload = getUserStatus;
+  </script>
+</body>
+</html>
 
