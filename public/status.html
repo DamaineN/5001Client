@@ -35,3 +35,81 @@ OCTYPE html>
     .navbar-links a:hover {
       text-decoration: underline;
     }
+     /* Style for the status container */
+    .status-container {
+      background-color: #ebdbe8;
+      padding: 30px;
+      margin: 40px auto;
+      width: 80%;
+      max-width: 600px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style for the status box */
+    .status-box {
+      background-color: #e0f7fa;
+      padding: 20px;
+      border-radius: 10px;
+      border: 2px solid #796b00;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #00796b;
+    }
+
+    /* Style for status text */
+    #statusMessage {
+      font-size: 22px;
+      color: #000505;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 40px;
+      color: #00796b;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 24px;
+      color: #00796b;
+    }
+
+    .user-info {
+      font-size: 18px;
+      color: #3d3d3d;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <div class="navbar-logo">
+      <img src="images/logo_dbkl2.png" alt="MYdbkl Logo">
+      <span class="navbar-title">MYdbkl</span>
+    </div>
+    <div class="navbar-links">
+      <a href="status.html">Status</a>
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+    </div>
+  </div>
+
+  <h1>Status Page</h1>
+
+  <!-- Status Message Section -->
+  <div class="status-container">
+    <h2>Your Status:</h2>
+    <div class="status-box">
+      <span id="status">Loading...</span>
+    </div>
+    <div class="user-info">
+      <p id="userName">Name: Loading...</p>
+      <p id="userIcNumber">IC Number: Loading...</p>
+    </div>
+  </div>
+
