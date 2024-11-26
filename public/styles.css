@@ -1,0 +1,141 @@
+/* Navigation Bar Styles */
+.navbar {
+    width: 100%;
+    background-color: #1d24ea;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: fixed; /* Fix navbar to the top */
+    top: 0;
+    left: 0;
+    z-index: 1000; 
+  }
+  
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 14px 20px;
+    font-size: 16px;
+  }
+  
+  .navbar a:hover {
+    background-color: #575757;
+    border-radius: 4px;
+  }
+  
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-logo img {
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .navbar-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .navbar-links {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+  }
+  
+  .form-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px 30px;
+    max-width: 900px; /* Maintain width */
+    width: 100%;
+    margin: 20px 0;
+  }
+  
+  .form-container h2 {
+    text-align: center;
+    color: #444;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  input, select {
+    font-size: 14px; /* Smaller text size */
+    padding: 6px; /* Reduced padding */
+    margin: 6px 0;
+    width: 95%; /* Compact width */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  button {
+    font-size: 14px; /* Smaller font size */
+    padding: 8px 15px; /* Compact padding */
+    margin: 8px 0;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Flexbox for side-by-side camera buttons */
+  .camera-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Reduced gap between buttons */
+    margin-bottom: 15px; /* Reduced space below buttons */
+  }
+  
+  .camera-buttons button {
+    width: auto; /* Keep buttons compact */
+    padding: 8px 15px; /* Match compact padding */
+  }
+  
+  /* Styling for the submit button */
+  .submit-button {
+    background-color: #007BFF; /* Different color for submit */
+    font-size: 14px; /* Compact font size */
+    padding: 12px 25px; /* Moderate padding for emphasis */
+    margin-top: 15px; /* Reduced margin above the submit button */
+    width: auto;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+  
