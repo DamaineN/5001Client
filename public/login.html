@@ -138,6 +138,13 @@
         },
         body: JSON.stringify(data)
       });
+
+      const result = await response.json();
+      alert(result.message);
+
+      if (response.ok) {
+        window.location.href = 'status.html';  // Redirect to the status page after login
+      }
     });
   </script>
 </body>
